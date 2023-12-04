@@ -1,9 +1,10 @@
+import os
 import csv
 from faker import Faker
 from datetime import datetime
 
 # Function to generate and write fake data to a CSV file with a timestamp
-def generate_and_write_fake_data(num_rows):
+def generate_and_write_fake_data(output_folder, num_rows):
     fake = Faker()
 
     # Specify the fieldnames for the CSV, rewrite the names to match your primary/f-keys, filenames impact your csv cell row A so this makes it easier to export into a db.
@@ -30,14 +31,14 @@ def generate_and_write_fake_data(num_rows):
         "CC Expire",
         "CC Full",
         "IPv4 Public",
-        "IPv4 Private",  # Corrected field name
+        "IPv4 Private",
     ]
 
     # Get the current timestamp
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
 
     # Define the CSV filename with the timestamp
-    csv_filename = f"fake_data_{timestamp}.csv"
+    csv_filename = os.path.join(output_folder, f"fake_data_{timestamp}.csv")
 
     with open(csv_filename, mode="w", newline="", encoding="utf-8") as csv_file:  # Specify UTF-8 encoding
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
@@ -70,7 +71,7 @@ def generate_and_write_fake_data(num_rows):
                 "CC Expire": fake.credit_card_expire(),
                 "CC Full": fake.credit_card_full(card_type="discover"),
                 "IPv4 Public": fake.ipv4_public(),
-                "IPv4 Private": fake.ipv4_private(),  # Corrected field name
+                "IPv4 Private": fake.ipv4_private(),
             }
 
             # Write the data row
@@ -78,8 +79,9 @@ def generate_and_write_fake_data(num_rows):
 
     print(f"Fake data written to {csv_filename}")
 
-# Specify the number of rows you want in the CSV
+# Specify the output folder and the number of rows you want in the CSV
+output_folder = "/path/to/your/output/folder"  # Change this to your desired output folder
 num_rows = 10  # Change this to the desired number of rows
 
 # Generate and write fake data to the CSV with a timestamp
-generate_and_write_fake_data(num_rows)
+generate_and_write_fake_data(output_folder, num_rows)

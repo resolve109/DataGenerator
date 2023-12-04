@@ -29,6 +29,8 @@ def generate_and_write_fake_data(num_rows):
         "CC Security Code",
         "CC Expire",
         "CC Full",
+        "IPv4 Public",
+        "IPv4 Private",  # Corrected field name
     ]
 
     # Get the current timestamp
@@ -67,6 +69,8 @@ def generate_and_write_fake_data(num_rows):
                 "CC Security Code": fake.credit_card_security_code(card_type="discover"),
                 "CC Expire": fake.credit_card_expire(),
                 "CC Full": fake.credit_card_full(card_type="discover"),
+                "IPv4 Public": fake.ipv4_public(),
+                "IPv4 Private": fake.ipv4_private(),  # Corrected field name
             }
 
             # Write the data row
@@ -75,7 +79,7 @@ def generate_and_write_fake_data(num_rows):
     print(f"Fake data written to {csv_filename}")
 
 # Specify the number of rows you want in the CSV
-num_rows = 10000  # Change this to the desired number of rows
+num_rows = 10  # Change this to the desired number of rows
 
 # Generate and write fake data to the CSV with a timestamp
 generate_and_write_fake_data(num_rows)

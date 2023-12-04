@@ -14,7 +14,7 @@ You must have python installed to run this app, run main.py and it shoould work
 literally all you need to do is modify two lines of code.
 
 # Specify the output folder and the number of rows you want in the CSV
-output_folder = os.path.expanduser(r"C:\Users\username\Desktop\outputs")  # Use a raw string (r) or escape backslashes
+output_folder = os.path.expanduser(r"C:\Users\username\Desktop\outputs")  # Use a raw string (r) or escape backslashes, create a folder copy the file path and input it in here in the main.py file. use a text editor like notepad or notepad++
 num_rows = 10  # Change this to the desired number of rows
 
 # Generate and write fake data to the CSV with a timestamp

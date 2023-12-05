@@ -7,6 +7,7 @@ from datetime import datetime
 def generate_and_write_fake_data(output_folder, num_rows):
     fake = Faker()
 
+    # list of diseases IF YOU HAVE A BETTER WAY PLEASE SHARE THIS WITH ME CAUSE I STILL CANT FIGURE OUT HOW TO MAKE PART EASIER
     diseases = [
         "Abdominal aortic aneurysm",
         "Acne",
@@ -345,6 +346,16 @@ def generate_and_write_fake_data(output_folder, num_rows):
 
         # Add more diseases as needed
     ]
+    blood_types = [
+        "A+",
+        "A-",
+        "B+",
+        "B-",
+        "AB+",
+        "AB-",
+        "O+",
+        "O-",
+    ]
 
     # Specify the fieldnames for the CSV, rewrite the names to match your primary/f-keys, filenames impact your csv cell row A so this makes it easier to export into a db.
     fieldnames = [
@@ -358,7 +369,10 @@ def generate_and_write_fake_data(output_folder, num_rows):
         "Postcode",
         "Country",
         "Country Code",
+        "Timezone",
         "Job",
+        "Company",
+        "Company Email",
         "Social Security Number",
         "Currency",
         "Bank",
@@ -375,6 +389,8 @@ def generate_and_write_fake_data(output_folder, num_rows):
         "MAC Address",
         "MRN",
         "Disease",  # Add the Disease field
+        "Blood Type",
+        "Gender",
     ]
 
     # Get the current timestamp
@@ -399,6 +415,12 @@ def generate_and_write_fake_data(output_folder, num_rows):
             # Randomly select a disease or mark the person as healthy (None)
             disease = fake.random_element(diseases + [None])
 
+            # Randomly select a blood type
+            blood_type = fake.random_element(blood_types)
+
+            # Randomly select a gender
+            gender = fake.random_element(["Male", "Female"])
+
             fake_data = {
                 "Name": fake.name(),
                 "Data of Birth": (fake.date_between(start_date='-60y', end_date='-20y')),
@@ -409,8 +431,11 @@ def generate_and_write_fake_data(output_folder, num_rows):
                 "City": fake.city(),
                 "Postcode": fake.postcode(),
                 "Country": fake.country(),
-                "Country Code": fake.country_code(),
+                "Country Code": fake.date_time_this_decade(),
+                "Timezone": fake.country_code(),
                 "Job": fake.job(),
+                "Company": fake.company(),
+                "Company Email": fake.company_email(),
                 "Social Security Number": fake.ssn(),
                 "Currency": fake.currency(),
                 "Bank": fake.bank_country(),
@@ -427,6 +452,7 @@ def generate_and_write_fake_data(output_folder, num_rows):
                 "MAC Address": (fake.hexify(text="MAC:: ^^:^^:^^:^^:^^:^^:^^", upper=True)),
                 "MRN": mrn,
                 "Disease": disease,  # Add the disease to the data
+                "Blood Type": blood_type,
             }
 
             # Write the data row
